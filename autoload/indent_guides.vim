@@ -30,10 +30,11 @@ endfunction
 " Enables the indent guides for the current buffer and any other buffer upon
 " entering it.
 "
-function! indent_guides#enable()
+function! indent_guides#enable(...)
+  let force_flag = a:0 == 1 && a:1 == 1
   let g:indent_guides_autocmds_enabled = 1
 
-  if &diff || indent_guides#exclude_filetype()
+  if !force_flag && (&diff || indent_guides#exclude_filetype())
     call indent_guides#clear_matches()
     return
   end
